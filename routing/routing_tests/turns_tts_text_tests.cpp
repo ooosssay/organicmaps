@@ -388,6 +388,18 @@ UNIT_TEST(GetTtsStreetTextTest)
   // semicolon doesn't affect the suffix, but it does introduce punctuation that stops the a -> á replacement. Hopefully
   // this is acceptable for now (odd case.)
   TEST_EQUAL(getTtsText.GetTurnNotification(notificationHu17), "Háromszáz méter után Forduljon jobbra a puszta;ra", ());
+  Notification const notificationHu18(300, 0, false, CarDirection::TurnRight, measurement_utils::Units::Metric,
+                                      routing::RouteSegment::RoadNameInfo("10Á"));
+  TEST_EQUAL(getTtsText.GetTurnNotification(notificationHu18), "Háromszáz méter után Forduljon jobbra a 10Ára",
+             ());  // 10* is a and Á is ra
+  Notification const notificationHu19(300, 0, false, CarDirection::TurnRight, measurement_utils::Units::Metric,
+                                      routing::RouteSegment::RoadNameInfo("5É"));
+  TEST_EQUAL(getTtsText.GetTurnNotification(notificationHu19), "Háromszáz méter után Forduljon jobbra az 5Ére",
+             ());  // 5* is az and É is re
+  Notification const notificationHu20(300, 0, false, CarDirection::TurnRight, measurement_utils::Units::Metric,
+                                      routing::RouteSegment::RoadNameInfo("É100"));
+  TEST_EQUAL(getTtsText.GetTurnNotification(notificationHu20), "Háromszáz méter után Forduljon jobbra az É100ra",
+             ());  // É* is az and 100 is ra
 
   getTtsText.ForTestingSetLocaleWithJson(nlShortJson, "nl");
   TEST_EQUAL(getTtsText.GetTurnNotification(notification1),

@@ -1,44 +1,39 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "unicode/uchar.h"
 
 #include <regex>
 #include <string>
 
-namespace routing
+namespace routing::turns::sound
 {
-namespace turns
-{
-namespace sound
-{
-
-long FindInStrArray(std::u32string_view haystack, char32_t needle)
-{
-  auto begin = haystack.begin();
-  for (auto i = begin; i != haystack.end(); ++i)
-  {
-    const strings::UniChar item = *i;
-    if (item == needle)
-      return (long)i;
-  }
-  return -1;
-}
 
 void HungarianBaseWordTransform(std::string & hungarianString)
 {
-  std::pair<std::string_view, std::string_view> constexpr kToReplace[] = {
-      {"e", "é"}, {"a", "á"}, {"ö", "ő"}, {"ü", "ű"}};
+  if (hungarianString.length() == 0)
+    return;
+
+  strings::UniString myUniStr = strings::MakeUniString(hungarianString);
+
+  std::pair<char32_t, char32_t> constexpr kToReplace[] = {
+      {U'e', U'é'}, {U'a', U'á'}, {U'ö', U'ő'}, {U'ü', U'ű'}};
+  auto & lastChar = myUniStr.back();
   for (auto [base, harmonized] : kToReplace)
   {
-    if (strings::EndsWith(hungarianString, base))
+    if (lastChar == base)
     {
-      hungarianString.replace(hungarianString.size() - base.size(), base.size(), harmonized);
-      break;
+      lastChar = harmonized;
+      hungarianString = strings::ToUtf8(myUniStr);
+      return;
     }
   }
 }
 
 bool EndsInAcronymOrNum(strings::UniString const & myUniStr)
 {
+  if (myUniStr.size() == 0)
+    return false;
+
   bool allUppercaseNum = true;
   strings::UniString lowerStr = strings::MakeLowerCase(myUniStr);
   for (int i = myUniStr.size() - 1; i > 0; i--)
@@ -48,7 +43,7 @@ bool EndsInAcronymOrNum(strings::UniString const & myUniStr)
       break;
     // we've found a char that is already lowercase and not a number,
     // therefore the string is not exclusively uppercase/numeric
-    else if (myUniStr[i] == lowerStr[i] && !std::isdigit(myUniStr[i]))
+    else if (myUniStr[i] == lowerStr[i] && !u_isdigit(myUniStr[i]))
     {
       allUppercaseNum = false;
       break;
@@ -59,7 +54,10 @@ bool EndsInAcronymOrNum(strings::UniString const & myUniStr)
 
 uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianString)
 {
-  constexpr std::array<std::string_view, 14> backNames = {
+  if (hungarianString.length() == 0)
+    return 2;
+
+  std::array<std::string_view, 14> constexpr backNames = {
       "A",  // a
       "Á",  // á
       "H",  // há
@@ -76,7 +74,7 @@ uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianStrin
       "8",  // nyolc
   };
 
-  constexpr std::array<std::string_view, 31> frontNames = {
+  std::array<std::string_view, 31> constexpr frontNames = {
       // all other letters besides H and K
       "B", "C", "D", "E", "É", "F", "G", "J", "L", "M", "N", "Ö", "Ő",
       "P", "Q", "R", "S", "T", "Ú", "Ü", "V", "W", "X", "Y", "Z",
@@ -88,7 +86,7 @@ uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianStrin
       "9",  // kilenc
   };
 
-  constexpr std::array<std::string_view, 5> specialCaseFront = {
+  std::array<std::string_view, 5> constexpr specialCaseFront = {
       "10",  // tíz special case front
       "40",  // negyven front
       "50",  // ötven front
@@ -96,15 +94,20 @@ uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianStrin
       "90",  // kilencven front
   };
 
-  constexpr std::array<std::string_view, 4> specialCaseBack = {
+  std::array<std::string_view, 4> constexpr specialCaseBack = {
       "20",  // húsz back
       "30",  // harminc back
       "60",  // hatvan back
       "80",  // nyolcvan back
   };         // TODO: consider regex
 
-  //'100', // száz back
+  // "100", // száz back, handled below
 
+  // Using an increasingly-large buffer from the end of the string,
+  // compare that buffer with the views above. This works even taking std::string
+  // substrings in a Unicode string, because in this function we compare resulting
+  // contiguous substrings. If the last char is two bytes, the loop will just run
+  // twice instead of once to achieve the same result.
   for (size_t i = hungarianString.length(); i > 0; i--)
   {
     std::string hungarianSub = hungarianString.substr(0, i);
@@ -133,9 +136,8 @@ uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianStrin
 
 uint8_t CategorizeHungarianLastWordVowels(std::string const & hungarianString)
 {
-  std::u32string_view constexpr front{U"eéöőüű"};
-  std::u32string_view constexpr back{U"aáoóuú"};
-  std::u32string_view constexpr indeterminate{U"ií"};
+  if (hungarianString.length() == 0)
+    return 2;
 
   strings::UniString myUniStr = strings::MakeUniString(hungarianString);
 
@@ -147,33 +149,31 @@ uint8_t CategorizeHungarianLastWordVowels(std::string const & hungarianString)
   bool foundIndeterminate = false;
   strings::MakeLowerCaseInplace(myUniStr);  // this isn't an acronym, so match based on lowercase
 
+  std::u32string_view constexpr front{U"eéöőüű"};
+  std::u32string_view constexpr back{U"aáoóuú"};
+  std::u32string_view constexpr indeterminate{U"ií"};
+
   // find last vowel in last word
   for (size_t i = myUniStr.size() - 1; i > 0; i--)
   {
-    LOG(LWARNING, ("i", i, (char)myUniStr[i], "Y"));
-    if (FindInStrArray(front, myUniStr[i]) != -1)
+    if (front.find(myUniStr[i]) != std::string::npos)
     {
-      LOG(LWARNING, ("returning 1"));
       return 1;
     }
-    if (FindInStrArray(back, myUniStr[i]) != -1)
+    if (back.find(myUniStr[i]) != std::string::npos)
     {
-      LOG(LWARNING, ("returning 2"));
       return 2;
     }
-    if (FindInStrArray(indeterminate, myUniStr[i]) != -1)
+    if (indeterminate.find(myUniStr[i]) != std::string::npos)
     {
-      LOG(LWARNING, ("finding ind"));
       foundIndeterminate = true;
     }
     if (myUniStr[i] == U' ' && foundIndeterminate == true)
     {  // if we've hit a space with only indeterminates, it's back
-      LOG(LWARNING, ("returning 2 (space, ind)"));
       return 2;
     }
     if (myUniStr[i] == U' ' && foundIndeterminate == false)
     {  // if we've hit a space with no vowels at all, check for numbers and acronyms
-      LOG(LWARNING, ("categorizing acronym (space, ind)"));
       return CategorizeHungarianAcronymsAndNumbers(hungarianString);
     }
   }
@@ -182,6 +182,4 @@ uint8_t CategorizeHungarianLastWordVowels(std::string const & hungarianString)
   return 2;  // default
 }
 
-}  // namespace sound
-}  // namespace turns
-}  // namespace routing
+}  // namespace routing::turns::sound

@@ -74,13 +74,13 @@ public:
   struct RoadNameInfo
   {
     // This is for street/road. |m_ref| |m_name|.
-    std::string m_name; // E.g "Johnson Ave.".
+    std::string m_name;             // E.g "Johnson Ave.".
     std::string m_destination_ref;  // Number of next road, e.g. "CA 85", Sometimes "CA 85 South". Usually match |m_ref|
                                     // of next main road.
     // This is for 1st segment of link after junction. Exit |junction_ref| to |m_destination_ref| for |m_destination|.
-    std::string m_junction_ref;  // Number of junction e.g. "398B".
-    std::string m_destination; // E.g. "Cupertino".
-    std::string m_ref;         // Number of street/road e.g. "CA 85".
+    std::string m_junction_ref;     // Number of junction e.g. "398B".
+    std::string m_destination;      // E.g. "Cupertino".
+    std::string m_ref;              // Number of street/road e.g. "CA 85".
     bool m_isLink = false;
 
     RoadNameInfo() = default;

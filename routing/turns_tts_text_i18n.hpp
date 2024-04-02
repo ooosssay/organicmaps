@@ -12,18 +12,6 @@ namespace turns
 namespace sound
 {
 
-/** Returns -1 for not found, positive for which item in the haystack was found
- *
- * Finds the needle in an array haystack, and then returns the index of the item found
- *
- * @tparam N - an arbitrary array size
- * @param haystack - array of string_views
- * @param needle - a string to find in the array
- * @return long - the index of the needle in the haystack
- */
-template <std::size_t N>
-long FindInStrArray(const std::array<std::string_view, N> & haystack, std::string & needle);
-
 /**
  * @brief Modifies a string's last character to harmonize its vowel with a -ra/-re suffix
  *

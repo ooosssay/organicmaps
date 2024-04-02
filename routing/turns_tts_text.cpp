@@ -10,11 +10,7 @@
 #include <regex>
 #include <string>
 
-namespace routing
-{
-namespace turns
-{
-namespace sound
+namespace routing::turns::sound
 {
 
 namespace
@@ -99,9 +95,7 @@ void FormatFullRoadName(RouteSegment::RoadNameInfo & road, std::string & name)
   {
     // append strings with delimiter and no trailing
     for (size_t i = 0; i < outArr.size() - 1; i++)
-    {
       name.append(outArr[i] + "; ");
-    }
     name.append(outArr[outArr.size() - 1]);
   }
 
@@ -210,7 +204,7 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
         strings::ReplaceLast(distDirOntoStreetStr, "-re", "");  // clear it
 
       // if the first pronounceable character of the street is a vowel, use "az" instead of "a"
-      // 1, 5, and 1000 start with vowels but not 10 or 100 (including 5*, 5**, 1*, 1**, 1***, etc)
+      // 1, 5, and 1000 start with vowels but not 10 or 100 (numbers are combined as in English: 5*, 5**, 1*, 1**, 1***, etc)
       static const std::regex rHun("^[5aeiouyáéíóúöüőű]|^1$|^1[^\\d]|^1\\d\\d\\d[^\\d]", std::regex_constants::icase);
       std::smatch ma;
       if (std::regex_search(streetOut, ma, rHun) && ma.size() > 0)
@@ -406,6 +400,4 @@ std::string GetDirectionTextId(Notification const & notification)
   ASSERT(false, ());
   return {};
 }
-}  // namespace sound
-}  // namespace turns
-}  // namespace routing
+}  // namespace routing::turns::sound
