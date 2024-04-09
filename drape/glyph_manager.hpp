@@ -44,8 +44,9 @@ public:
 
   static Glyph GenerateGlyph(Glyph const & glyph, uint32_t sdfScale);
 
-private:
   int GetFontIndex(strings::UniChar unicodePoint);
+  int GetFontIndex(std::u16string_view sv);
+private:
   // Immutable version can be called from any thread and doesn't require internal synchronization.
   int GetFontIndexImmutable(strings::UniChar unicodePoint) const;
   int FindFontIndexInBlock(UnicodeBlock const & block, strings::UniChar unicodePoint) const;

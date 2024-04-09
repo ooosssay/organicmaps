@@ -54,6 +54,8 @@ set(SRC
   graphics_context.hpp
   graphics_context_factory.cpp
   graphics_context_factory.hpp
+  harfbuzz_shape.cpp
+  harfbuzz_shape.hpp
   hw_texture.cpp
   hw_texture.hpp
   index_buffer.cpp
@@ -183,3 +185,5 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 omim_add_test_subdirectory(drape_tests)
+
+omim_add_tool_subdirectory(fonts_tool)
