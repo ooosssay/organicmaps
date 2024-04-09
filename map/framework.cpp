@@ -2155,7 +2155,7 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
   auto const isFeatureMatchingEnabled = buildInfo.IsFeatureMatchingEnabled();
 
   // Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
-  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() && !buildInfo.m_isLongTap &&
+  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() && buildInfo.m_isLongTap &&
       !(isFeatureMatchingEnabled && selectedFeature.IsValid()))
   {
     auto const trackSelectionInfo = FindTrackInTapPosition(buildInfo);
@@ -2173,11 +2173,11 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
   if (selectedFeature.IsValid())
   {
     FillFeatureInfo(selectedFeature, outInfo);
-    if (buildInfo.m_isLongTap)
+    if (!buildInfo.m_isLongTap)
       outInfo.SetMercator(buildInfo.m_mercator);
     showMapSelection = true;
   }
-  else if (buildInfo.m_isLongTap || buildInfo.m_source != place_page::BuildInfo::Source::User)
+  else if (!buildInfo.m_isLongTap || buildInfo.m_source != place_page::BuildInfo::Source::User)
   {
     if (isFeatureMatchingEnabled)
       FillPointInfo(outInfo, buildInfo.m_mercator, {});
