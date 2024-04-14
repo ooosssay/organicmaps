@@ -70,6 +70,7 @@ struct TextMetrics
 // Shapes a single line of text without newline \r or \n characters.
 // Any line breaking/trimming should be done by the caller.
 TextRuns ItemizeText(std::string_view utf8);
+void ReorderRTL(TextRuns & runs);
 TextMetrics ShapeText(std::string_view utf8, int fontPixelHeight, int8_t lang);
 TextMetrics ShapeText(std::string_view utf8, int fontPixelHeight, char const * lang);
 }  // namespace text_shape

@@ -513,6 +513,28 @@ TextRuns ItemizeText(std::string_view utf8)
   return textRuns;
 }
 
+void ReorderRTL(TextRuns & runs)
+{
+  auto it = runs.substrings.begin();
+  auto const end = runs.substrings.end();
+  // TODO(AB): Line (default rendering) direction is determined by the first run. It should be defined as a parameter depending on the language.
+  auto const lineDirection = it->m_direction;
+  while(it != end)
+  {
+    if (it->m_direction == lineDirection)
+      ++it;
+    else
+    {
+      auto start = it++;
+      while (it != end && it->m_direction != lineDirection)
+        ++it;
+      std::reverse(start, it);
+    }
+  }
+  if (lineDirection != HB_DIRECTION_LTR)
+    std::reverse(runs.substrings.begin(), end);
+}
+
 TextMetrics ShapeText(std::string_view utf8, int fontPixelHeight, int8_t lang)
 {
   //ShapeRuns(fontParams, textRuns);

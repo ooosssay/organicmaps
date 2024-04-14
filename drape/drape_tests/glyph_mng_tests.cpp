@@ -71,7 +71,8 @@ public:
     auto const hbLanguage = hb_language_from_string(m_lang, -1);
 
     QPoint hbPen(10, 100);
-    auto const runs = text_shape::ItemizeText(m_utf8);
+    auto runs = text_shape::ItemizeText(m_utf8);
+    text_shape::ReorderRTL(runs);
     for (auto const& substring : runs.substrings)
     {
       hb_buffer_t *buf = hb_buffer_create();
@@ -90,14 +91,13 @@ public:
 
       auto reader = GetPlatform().GetReader("00_NotoNaskhArabic-Regular.ttf");
       auto fontFile = reader->GetName();
-      FT_Face face;
-      if (FT_New_Face(m_freetypeLibrary, fontFile.c_str(), 0, &face)) {
+      FT_Face arabicFace;
+      if (FT_New_Face(m_freetypeLibrary, fontFile.c_str(), 0, &arabicFace)) {
         std::cerr << "Can't load font " << fontFile << '\n';
         return;
       }
-
       // Set character size
-      FT_Set_Pixel_Sizes(face, 0 /* pixel_width */, m_fontPixelSize /* pixel_height */);
+      FT_Set_Pixel_Sizes(arabicFace, 0 /* pixel_width */, m_fontPixelSize /* pixel_height */);
       // This also works.
       // if (FT_Set_Char_Size(face, 0, m_fontPixelSize << 6, 0, 0)) {
       //   std::cerr << "Can't set character size\n";
@@ -108,7 +108,7 @@ public:
       //FT_Set_Transform(face, nullptr, nullptr);
 
       // Load font into HarfBuzz
-      hb_font_t *font = hb_ft_font_create(face, nullptr);
+      hb_font_t *font = hb_ft_font_create(arabicFace, nullptr);
 
       // Shape!
       hb_shape(font, buf, nullptr, 0);
@@ -122,9 +122,9 @@ public:
         hb_codepoint_t const glyphid = glyph_info[i].codepoint;
 
         FT_Int32 const flags =  FT_LOAD_RENDER;
-        FT_Load_Glyph(face, glyphid, flags);
+        FT_Load_Glyph(arabicFace, glyphid, flags);
 
-        FT_GlyphSlot slot = face->glyph;
+        FT_GlyphSlot slot = arabicFace->glyph;
         //      FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL);
 
         FT_Bitmap const & ftBitmap = slot->bitmap;
@@ -155,7 +155,7 @@ public:
       // Tidy up.
       hb_buffer_destroy(buf);
       hb_font_destroy(font);
-      FT_Done_Face(face);
+      FT_Done_Face(arabicFace);
     }
 
     //////////////////////////////////////////////////////////////////
@@ -221,11 +221,15 @@ UNIT_TEST(GlyphLoadingTest)
   renderer.SetString("الحلّة گلها"" كسول الزنجبيل القط""56""عين علي (الحربية)""123"" اَلْعَرَبِيَّةُ", 27, "ar");
   RunTestLoop("Test2", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
 
-//  renderer.SetString("گُلها");
-//  RunTestLoop("Test3", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
+  renderer.SetString("12345""گُلها""12345""گُلها""12345", 27, "ar");
+  RunTestLoop("Test3", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
 //
 //  renderer.SetString("മനക്കലപ്പടി");
 //  RunTestLoop("Test4", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
+
+  renderer.SetString("Test 12 345 ""گُلها""678 9000 Test", 27, "ar");
+  RunTestLoop("Test5", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
+
 #endif
 }
 
