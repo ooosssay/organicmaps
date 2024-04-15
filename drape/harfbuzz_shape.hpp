@@ -49,6 +49,7 @@ struct TextRuns
 {
   std::u16string text;
   std::vector<TextRun> substrings;
+  std::vector<size_t> runOrder;
 };
 
 struct GlyphMetrics

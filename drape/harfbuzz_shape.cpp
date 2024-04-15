@@ -515,6 +515,7 @@ TextRuns ItemizeText(std::string_view utf8)
 
 void ReorderRTL(TextRuns & runs)
 {
+  // TODO(AB): Optimize implementation to use indexes to runs instead of copying runs.
   auto it = runs.substrings.begin();
   auto const end = runs.substrings.end();
   // TODO(AB): Line (default rendering) direction is determined by the first run. It should be defined as a parameter depending on the language.

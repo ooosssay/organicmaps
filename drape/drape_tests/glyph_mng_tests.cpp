@@ -230,6 +230,9 @@ UNIT_TEST(GlyphLoadingTest)
   renderer.SetString("Test 12 345 ""گُلها""678 9000 Test", 27, "ar");
   RunTestLoop("Test5", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
 
+  renderer.SetString("Test 12 345 Test", 27, "ar");
+  RunTestLoop("Test5", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
+
 #endif
 }
 
