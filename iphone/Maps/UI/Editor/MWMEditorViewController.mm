@@ -724,6 +724,19 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   }
 }
 
+- (void)removeAdditionalNameAtIndexPath:(NSIndexPath *)indexPath
+{
+  MWMEditorAdditionalNameTableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
+  if (!cell)
+    NSAssert(false, @"Removed MWMEditorAdditionalNameTableViewCell should not be nil");
+  m_mapObject.RemoveNameForLanguage(cell.code);
+  // Exclude language from the additional languages list.
+  m_newAdditionalLanguages.erase(std::remove(m_newAdditionalLanguages.begin(), m_newAdditionalLanguages.end(), cell.code), m_newAdditionalLanguages.end());
+  // Reload the table to update the list of additional languages.
+  [self configTable];
+  [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
@@ -834,6 +847,24 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   case MWMEditorSectionAdditionalNames:
   case MWMEditorSectionButton: return kDefaultFooterHeight;
   }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return [self cellTypeForIndexPath:indexPath] == MWMEditorCellTypeAdditionalName && indexPath.item > 0;
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UIContextualAction * deleteAction =
+    [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                            title:L(@"delete")
+                                          handler:^(UIContextualAction * action, UIView * sourceView, void (^completionHandler)(BOOL))
+     {
+      [self removeAdditionalNameAtIndexPath:indexPath];
+      completionHandler(YES);
+    }];
+  return [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
 }
 
 #pragma mark - MWMPlacePageOpeningHoursCellProtocol
