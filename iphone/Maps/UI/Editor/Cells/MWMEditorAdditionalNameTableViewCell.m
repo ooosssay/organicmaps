@@ -5,6 +5,7 @@ static CGFloat const kErrorLabelHeight = 16;
 
 @interface MWMEditorAdditionalNameTableViewCell ()
 
+@property(weak, nonatomic) IBOutlet UIStackView *stackView;
 @property(weak, nonatomic) IBOutlet UILabel * languageLabel;
 @property(weak, nonatomic) IBOutlet UITextField * textField;
 @property(weak, nonatomic) IBOutlet UILabel * errorLabel;
@@ -88,6 +89,14 @@ static CGFloat const kErrorLabelHeight = 16;
 {
   [textField resignFirstResponder];
   return YES;
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+  UIView * view = [super hitTest:point withEvent:event];
+  if (view == self.stackView)
+    return self.textField;
+  return view;
 }
 
 @end
