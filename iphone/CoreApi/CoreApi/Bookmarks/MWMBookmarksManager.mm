@@ -323,11 +323,54 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 - (void)deleteCategory:(MWMMarkGroupID)groupId
 {
+  NSError *error = [self trashCategory:groupId];
+  if (error) {
+    // TODO: Handle error
+    return;
+  }
+
   self.bm.GetEditSession().DeleteBmCategory(groupId);
   [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarksCategoryDeleted:)])
       [observer onBookmarksCategoryDeleted:groupId];
   }];
+}
+
+// TODO: Should be implemented in cpp
+- (NSError *)trashCategory:(MWMMarkGroupID)groupId {
+  NSError * error;
+  NSString * trashPathComponent = @".Trash";
+
+  NSURL * documentsURL = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+  NSString * documentsPath = [documentsURL absoluteString];
+  
+  NSURL * fileURL = [NSURL fileURLWithPath: @(self.bm.GetCategoryFileName(groupId).c_str())];
+  NSString * filePath = [fileURL absoluteString];
+  
+  NSRange range = [filePath rangeOfString:documentsPath];
+  NSString * relativeFilePath = [filePath substringFromIndex:range.location + range.length];
+  
+  NSURL * trashURL = [documentsURL URLByAppendingPathComponent:trashPathComponent isDirectory:YES];
+  NSURL * trashedFileURL = [NSURL URLWithString:relativeFilePath relativeToURL:trashURL];
+
+  if (![NSFileManager.defaultManager fileExistsAtPath:trashURL.path]) {
+    [NSFileManager.defaultManager createDirectoryAtURL:trashURL withIntermediateDirectories:YES attributes:nil error:&error];
+    if (error)
+      return error;
+  }
+
+  if ([NSFileManager.defaultManager fileExistsAtPath:trashedFileURL.path]) {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd-HHmmss"];
+    NSString * dateString = [dateFormatter stringFromDate:[NSDate date]];
+
+    NSString * pathExtension = [trashedFileURL pathExtension];
+    NSString * newTrashedFilePath = [[trashedFileURL.path stringByDeletingPathExtension] stringByAppendingFormat:@"-%@.%@", dateString, trashedFileURL.pathExtension];
+    trashedFileURL = [NSURL fileURLWithPath:newTrashedFilePath];
+  }
+
+  [NSFileManager.defaultManager moveItemAtURL:fileURL toURL:trashedFileURL error:&error];
+  return error;
 }
 
 - (BOOL)checkCategoryName:(NSString *)name
