@@ -337,27 +337,36 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 }
 
 // TODO: Should be implemented in cpp
+- (NSArray<NSURL *> *)getRecentlyDeletedCategories {
+  NSError * error;
+  NSArray<NSURL *> * contents = [NSFileManager.defaultManager contentsOfDirectoryAtURL:self.trashDirectory includingPropertiesForKeys:@[NSURLNameKey, NSURLCreationDateKey, NSURLPathKey] options:NSDirectoryEnumerationSkipsHiddenFiles error:&error];
+  return contents;
+}
+
+- (NSURL *)documentsDirectory {
+  return [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+}
+
+- (NSURL *)trashDirectory {
+  NSString * trashPathComponent = @".Trash";
+  NSURL * trashURL = [[self documentsDirectory] URLByAppendingPathComponent:trashPathComponent];
+  if (![NSFileManager.defaultManager fileExistsAtPath:trashURL.path]) {
+    [NSFileManager.defaultManager createDirectoryAtURL:trashURL withIntermediateDirectories:YES attributes:nil error:nil];
+  }
+  return trashURL;
+}
+
+// TODO: Should be implemented in cpp
 - (NSError *)trashCategory:(MWMMarkGroupID)groupId {
   NSError * error;
-  NSString * trashPathComponent = @".Trash";
 
-  NSURL * documentsURL = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-  NSString * documentsPath = [documentsURL absoluteString];
-  
   NSURL * fileURL = [NSURL fileURLWithPath: @(self.bm.GetCategoryFileName(groupId).c_str())];
   NSString * filePath = [fileURL absoluteString];
   
-  NSRange range = [filePath rangeOfString:documentsPath];
+  NSRange range = [filePath rangeOfString:[self.documentsDirectory absoluteString]];
   NSString * relativeFilePath = [filePath substringFromIndex:range.location + range.length];
   
-  NSURL * trashURL = [documentsURL URLByAppendingPathComponent:trashPathComponent isDirectory:YES];
-  NSURL * trashedFileURL = [NSURL URLWithString:relativeFilePath relativeToURL:trashURL];
-
-  if (![NSFileManager.defaultManager fileExistsAtPath:trashURL.path]) {
-    [NSFileManager.defaultManager createDirectoryAtURL:trashURL withIntermediateDirectories:YES attributes:nil error:&error];
-    if (error)
-      return error;
-  }
+  NSURL * trashedFileURL = [NSURL URLWithString:relativeFilePath relativeToURL:self.trashDirectory];
 
   if ([NSFileManager.defaultManager fileExistsAtPath:trashedFileURL.path]) {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

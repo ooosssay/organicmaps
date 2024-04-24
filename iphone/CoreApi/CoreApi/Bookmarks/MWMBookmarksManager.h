@@ -149,5 +149,8 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)setElevationMyPositionChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;
 - (void)resetElevationMyPositionChanged;
 
+- (NSArray<NSURL *> *)getRecentlyDeletedCategories;
+
+
 @end
 NS_ASSUME_NONNULL_END
