@@ -2172,9 +2172,8 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
   bool showMapSelection = false;
   if (selectedFeature.IsValid())
   {
+    // Selection circle should match feature
     FillFeatureInfo(selectedFeature, outInfo);
-    if (!buildInfo.m_isLongTap)
-      outInfo.SetMercator(buildInfo.m_mercator);
     showMapSelection = true;
   }
   else if (!buildInfo.m_isLongTap || buildInfo.m_source != place_page::BuildInfo::Source::User)
