@@ -471,6 +471,8 @@
 		ED79A5B32BD90B1600952D1F /* RecentlyDeletedCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5B22BD90B1600952D1F /* RecentlyDeletedCategoriesViewController.swift */; };
 		ED79A5B52BD90E6A00952D1F /* RecentlyDeletedCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5B42BD90E6A00952D1F /* RecentlyDeletedCategoriesViewModel.swift */; };
 		ED79A5B72BD9292B00952D1F /* RecentlyDeletedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5B62BD9292B00952D1F /* RecentlyDeletedTableViewCell.swift */; };
+		ED79A5BC2BDE6F4800952D1F /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5BB2BDE6F4800952D1F /* RecentlyDeletedCategoriesViewModelTests.swift */; };
+		ED79A5BE2BDE6F7400952D1F /* MockRecentlyDeletedCategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5BD2BDE6F7400952D1F /* MockRecentlyDeletedCategoriesManager.swift */; };
 		ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED99667D2B94FBC20083CE55 /* ColorPicker.swift */; };
 		EDBD68072B625724005DD151 /* LocationServicesDisabledAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */; };
 		EDBD680B2B62572E005DD151 /* LocationServicesDisabledAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */; };
@@ -1364,6 +1366,8 @@
 		ED79A5B22BD90B1600952D1F /* RecentlyDeletedCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewController.swift; sourceTree = "<group>"; };
 		ED79A5B42BD90E6A00952D1F /* RecentlyDeletedCategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModel.swift; sourceTree = "<group>"; };
 		ED79A5B62BD9292B00952D1F /* RecentlyDeletedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedTableViewCell.swift; sourceTree = "<group>"; };
+		ED79A5BB2BDE6F4800952D1F /* RecentlyDeletedCategoriesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModelTests.swift; sourceTree = "<group>"; };
+		ED79A5BD2BDE6F7400952D1F /* MockRecentlyDeletedCategoriesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecentlyDeletedCategoriesManager.swift; sourceTree = "<group>"; };
 		ED99667D2B94FBC20083CE55 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationServicesDisabledAlert.xib; sourceTree = "<group>"; };
 		EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesDisabledAlert.swift; sourceTree = "<group>"; };
@@ -2980,6 +2984,7 @@
 		ED1ADA312BC6B19E0029209F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				ED79A5B82BDE6EF000952D1F /* RecentlyDeletedCategoriesTests */,
 				ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */,
 			);
 			path = Tests;
@@ -2993,6 +2998,15 @@
 				ED79A5B62BD9292B00952D1F /* RecentlyDeletedTableViewCell.swift */,
 			);
 			path = RecentlyDeleted;
+			sourceTree = "<group>";
+		};
+		ED79A5B82BDE6EF000952D1F /* RecentlyDeletedCategoriesTests */ = {
+			isa = PBXGroup;
+			children = (
+				ED79A5BB2BDE6F4800952D1F /* RecentlyDeletedCategoriesViewModelTests.swift */,
+				ED79A5BD2BDE6F7400952D1F /* MockRecentlyDeletedCategoriesManager.swift */,
+			);
+			path = RecentlyDeletedCategoriesTests;
 			sourceTree = "<group>";
 		};
 		ED99667C2B94FBC20083CE55 /* ColorPicker */ = {
@@ -4398,6 +4412,7 @@
 				F6E2FDA41E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
 				3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.m in Sources */,
 				34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */,
+				ED79A5BE2BDE6F7400952D1F /* MockRecentlyDeletedCategoriesManager.swift in Sources */,
 				ED79A5B72BD9292B00952D1F /* RecentlyDeletedTableViewCell.swift in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.m in Sources */,
 				993DF10523F6BDB100AC231A /* UINavigationItem+styleName.swift in Sources */,
@@ -4479,6 +4494,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED79A5BC2BDE6F4800952D1F /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */,
 				ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
