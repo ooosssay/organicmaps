@@ -52,6 +52,12 @@
 	<string name="auto">Auto</string>
 	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
 	<string name="pref_map_3d_buildings_disabled_summary">Majengo ya 3D yamezimwa katika hali ya kuokoa nishati</string>
+	<!-- Settings «Route» category: «Tts enabled» title -->
+	<string name="pref_tts_enable_title">Tangaza Majina ya Mitaa</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Tangaza Majina ya Mitaa</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Ikiwashwa, jina la barabara au la kutoka ili kuwasha litasemwa kwa sauti.</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
 	<string name="pref_tts_test_voice_title">Jaribu maelekezo ya sauti (TTS, maandishi-kwa-hotuba)</string>
 	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
@@ -97,6 +103,8 @@
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
+	<string name="editor_category_unsuitable_title">Je, huwezi kupata aina inayofaa?</string>
+	<string name="editor_category_unsuitable_text">Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.</string>
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">Picha, hakiki, uhifadhi</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->

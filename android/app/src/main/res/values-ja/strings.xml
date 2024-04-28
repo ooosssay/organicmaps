@@ -166,7 +166,7 @@
 	<string name="description">メモ</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Mapsのお気に入りリストが共有されました</string>
-	<string name="share_bookmarks_email_body">こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!</string>
+	<string name="share_bookmarks_email_body">こんにち���！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">お気に入りをロード中</string>
 	<!-- Kmz file successful loading -->
@@ -233,6 +233,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">省電力モードで建物の 3D 表示がオフになっている</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">音声指示</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">通りの名前を発表</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">有効にすると、右折する通りまたは出口の名前が読み上げられます。</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">音声言語</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -506,6 +510,8 @@
 	<string name="editor_detailed_description">提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。</string>
 	<string name="editor_more_about_osm">OpenStreetMapについての詳細</string>
 	<string name="editor_operator">オペレーター</string>
+	<string name="editor_category_unsuitable_title">適切なカテゴリーが見つからない？</string>
+	<string name="editor_category_unsuitable_text">つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>のステップバイステップの詳細な手順をチェックする。</string>
 	<string name="downloader_no_downloaded_maps_title">マップをダウンロードしていません</string>
 	<string name="downloader_no_downloaded_maps_message">ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。</string>
 	<!-- abbreviation for meters -->
@@ -570,7 +576,7 @@
 	<string name="big_font">地図上のフォントサイズを大きくする</string>
 	<string name="traffic_update_app">Organic Maps をアップデートしてください</string>
 	<!-- "traffic" as in "road congestion" -->
-	<string name="traffic_data_unavailable">交通データは利用できません</string>
+	<string name="traffic_data_unavailable">交通データは利用で���ません</string>
 	<string name="enable_logging">ログを有効化</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">一般的なフィードバック</string>
@@ -762,7 +768,7 @@
 	<!-- App tip #01 -->
 	<string name="app_tip_01">あなたの寄付とサポートがあれば、世界で最高の地図を作成できます。</string>
 	<!-- App tip #02 -->
-	<string name="app_tip_02">私たちのアプリは気に入っていますか? 開発をサポートするために寄付をお願いします！ まだ気に入らないですか？ お知らせください。修正させていただきます。</string>
+	<string name="app_tip_02">私たちのアプリは気に入っていますか? 開発をサポートするために寄付をお���いします！ まだ気に入らないですか？ お知らせください。修正させていただきます。</string>
 	<!-- App tip #03 -->
 	<string name="app_tip_03">ソフトウェア開発者を知っている場合は、必要な機能を実装するように依頼できます。</string>
 	<!-- App tip #04 -->

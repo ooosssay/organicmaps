@@ -231,6 +231,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">הגדרת מבנים בתלת מימד מבוטלת במצב חיסכון בחשמל</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">הנחיות קוליות</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">הכריזו על שמות רחובות</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">כאשר מופעל, שם הרחוב או היציאה שאליו יש לפנות יוקרא בקול.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">שפת קול</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -496,6 +500,8 @@
 	<string name="editor_detailed_description">ההצעות שלך לשינוי המפה יישלחו לקהילת OpenStreetMap. יש לתאר פרטים נוספים שלא ניתן לערוך ב-Organic Maps.</string>
 	<string name="editor_more_about_osm">עוד על OpenStreetMap</string>
 	<string name="editor_operator">בעלים</string>
+	<string name="editor_category_unsuitable_title">לא מוצאים קטגוריה מתאימה?</string>
+	<string name="editor_category_unsuitable_text">באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו\'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.</string>
 	<string name="downloader_no_downloaded_maps_title">לא הורדת אף מפה</string>
 	<string name="downloader_no_downloaded_maps_message">הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.</string>
 	<!-- abbreviation for meters -->
@@ -647,7 +653,7 @@
 	<string name="power_managment_setting_never">אף פעם</string>
 	<string name="power_managment_setting_auto">כשהסוללה חלשה</string>
 	<string name="power_managment_setting_manual_max">תמיד</string>
-	<string name="enable_logging_warning_message">הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.</string>
+	<string name="enable_logging_warning_message">הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע ע�� מיקום.</string>
 	<string name="access_rules_author_only">עריכה אונליין</string>
 	<string name="driving_options_title">אפשרויות מסלול</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

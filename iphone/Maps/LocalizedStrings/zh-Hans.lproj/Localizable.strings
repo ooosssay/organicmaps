@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "语音指导";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "宣布街道名称";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "启用后，将大声说出要转入的街道或出口的名称。";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "语音语言";
 
@@ -703,7 +709,7 @@
 
 "editor_add_place_title" = "添加中";
 
-"editor_edit_place_name_hint" = "该地点的名称";
+"editor_edit_place_name_hint" = "该���点的名称";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "当地语言写道";
@@ -1272,6 +1278,33 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "地图";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "启用 iCloud 同步";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud 同步是一项正在开发的实验性功能。请确保备份了所有书签和曲目。";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud 已禁用";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "请在设备设置中启用 iCloud，以使用此功能。";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "启用";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "备份";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "错误：由于连接错误，同步失败";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "错误：由于超过 iCloud 配额，同步失败";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "错误：iCloud 不可用";
 
 "drive_through" = "驾车通过";
 

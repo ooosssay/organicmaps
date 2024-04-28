@@ -236,6 +236,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D будівлі вимкнені в режимі енергозбереження</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосові інструкції</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Проговорювати назви вулиць</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Якщо ввімкнено, назва вулиці або виїзду, на яку потрібно повернути, буде вимовлена вголос.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Мова підказок</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -506,6 +510,8 @@
 	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у Organic Maps.</string>
 	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>
 	<string name="editor_operator">Власник</string>
+	<string name="editor_category_unsuitable_title">Не можете знайти відповідну категорію?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps дозволяє додавати лише прості категорії точок, тобто без міст, доріг, озер, контурів будівель тощо. Будь ласка, додавайте такі категорії безпосередньо на <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Перевірте наш <a href="https://organicmaps.app/faq/editing/advanced-map-editing">посібник</a> для отримання детальних покрокових інструкцій.</string>
 	<string name="downloader_no_downloaded_maps_title">Ви не маєте завантажених мап</string>
 	<string name="downloader_no_downloaded_maps_message">Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.</string>
 	<!-- abbreviation for meters -->

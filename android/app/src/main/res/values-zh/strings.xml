@@ -220,6 +220,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D 建筑在省电模式下关闭</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">语音指导</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">宣布街道名称</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">启用后，将大声说出要转入的街道或出口的名称。</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">语音语言</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -461,7 +465,7 @@
 	<string name="editor_focus_map_on_location">拖动地图以选择此对象的正确位置。</string>
 	<string name="editor_edit_place_title">编辑中</string>
 	<string name="editor_add_place_title">添加中</string>
-	<string name="editor_edit_place_name_hint">该地点的名称</string>
+	<string name="editor_edit_place_name_hint">该���点的名称</string>
 	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
 	<string name="editor_default_language_hint">当地语言写道</string>
 	<string name="editor_edit_place_category_title">类别</string>
@@ -489,6 +493,8 @@
 	<string name="editor_detailed_description">您建议的更改将发送至 OpenStreetMap 社区。说明无法在 Organic Maps 编辑的详情。</string>
 	<string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
 	<string name="editor_operator">运营者</string>
+	<string name="editor_category_unsuitable_title">找不到合适的类别？</string>
+	<string name="editor_category_unsuitable_text">有机地图只允许添加简单的点类别，即不允许添加城镇、道路、湖泊、建筑轮廓等类别。请直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
 	<string name="downloader_no_downloaded_maps_message">下载地图来查找位置和离线浏览</string>
 	<!-- abbreviation for meters -->

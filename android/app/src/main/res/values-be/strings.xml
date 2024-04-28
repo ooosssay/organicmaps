@@ -175,7 +175,7 @@
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Не ўдалося загрузіць закладкі. Файл можа быць пашкоджаны або няспраўны.</string>
 	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
-	<string name="unknown_file_type">Прыкладанне не распазнае тып файла:\n%1$s</string>
+	<string name="unknown_file_type">Пр��кладанне не распазнае тып файла:\n%1$s</string>
 	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
 	<string name="failed_to_open_file">Не ўдалося адкрыць файл %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
@@ -234,6 +234,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">У рэжыме энергазберажэння 3D-будынкі адключаны</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Галасавыя інструкцыі</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Абвяшчаць назвы вуліц</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Калі ўключана, назва вуліцы або выезду, на які трэба павярнуць, будзе прамаўляцца ўслых.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Мова агучвання</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -461,7 +465,7 @@
 	<string name="select_cuisine">Выбраць кухню</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email або імя карыстальніка</string>
-	<string name="level">Паверх</string>
+	<string name="level">Па��ерх</string>
 	<string name="downloader_delete_map_dialog">Усе вашы праўкі мапы будуць выдаленыя разам з мапай.</string>
 	<string name="downloader_update_maps">Абнавіць мапы</string>
 	<string name="downloader_mwm_migration_dialog">Каб стварыць маршрут, вам трэба абнавіць усе мапы і потым пракласці маршрут зноў.</string>
@@ -502,6 +506,8 @@
 	<string name="editor_detailed_description">Прапанаваныя вамі змены будуць дасланы суполцы OpenStreetMap. Апішыце любыя дадатковыя дэталі, якія нельга рэдагаваць у Organic Maps.</string>
 	<string name="editor_more_about_osm">Падрабязней пра OpenStreetMap</string>
 	<string name="editor_operator">Уладальнік</string>
+	<string name="editor_category_unsuitable_title">Не можаце знайсці прыдатную катэгорыю?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps дазваляе дадаваць толькі простыя катэгорыі кропак, што азначае адсутнасць гарадоў, дарог, азёр, абрысаў будынкаў і г.д. Калі ласка, дадавайце такія катэгорыі непасрэдна на <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Праверце наш <a href="https://organicmaps.app/faq/editing/advanced-map-editing">кіраўніцтва</a> для атрымання падрабязных пакрокавых інструкцый.</string>
 	<string name="downloader_no_downloaded_maps_title">Вы не спампавалі ніводнай мапы</string>
 	<string name="downloader_no_downloaded_maps_message">Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.</string>
 	<!-- abbreviation for meters -->

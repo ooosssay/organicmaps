@@ -227,6 +227,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Els edificis en 3D es desactiven en mode d\'estalvi d\'energia</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instruccions de veu</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Anuncia els noms dels carrers</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Quan s\'activa, el nom del carrer o la sortida per girar es pronunciarà en veu alta.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Llengua de la veu</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -497,6 +501,8 @@
 	<string name="editor_detailed_description">Heu suggerit canvis en el mapa que s\'enviaran a la comunitat d\'OpenStreetMap. Descriviu qualsevol detall addicional que no es pot editar en l\'Organic Maps.</string>
 	<string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
 	<string name="editor_operator">Propietari</string>
+	<string name="editor_category_unsuitable_title">No trobeu una categoria adequada?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d\'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.</string>
 	<string name="downloader_no_downloaded_maps_title">No heu baixat cap mapa</string>
 	<string name="downloader_no_downloaded_maps_message">Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.</string>
 	<!-- abbreviation for meters -->

@@ -54,7 +54,7 @@
 "about_headline" = "Бесплатно для всех, сделано с любовью";
 
 /* Text in About screen */
-"about_proposition_1" = "• Без рекламы, без трекинга, без слежки";
+"about_proposition_1" = "• ��ез рекламы, без трекинга, без слежки";
 
 /* Text in About screen */
 "about_proposition_2" = "• Не разряжает батарею, работает в автономном режиме";
@@ -253,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосовые инструкции";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Проговаривать названия улиц";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "При включении название улицы или съезда, на который нужно повернуть, будет произноситься вслух.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Язык подсказок";
@@ -480,7 +486,7 @@
 
 "dialog_routing_change_start" = "Измените начальную точку маршрута";
 
-"dialog_routing_start_not_determined" = "Маршрут не построен. Не определена начальная точка маршрута.";
+"dialog_routing_start_not_determined" = "Маршрут не построен. Не опре��елена начальная точка маршрута.";
 
 "dialog_routing_select_closer_start" = "Пожалуйста, выберите начальную точку маршрута ближе к дороге.";
 
@@ -1272,6 +1278,33 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Карта";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Включить синхронизацию с iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Синхронизация с iCloud - это экспериментальная функция, которая находится в стадии разработки. Убедитесь, что вы сделали резервную копию всех своих закладок и треков.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud отключен";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Чтобы воспользоваться этой функцией, включите iCloud в настройках своего устройства.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Включить";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Резервная копия";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Ошибка: Не удалось выполнить синхронизацию из-за ошибки подключения";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Ошибка: Не удалось выполнить синхронизацию из-за превышения квоты iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Ошибка: iCloud недоступен";
 
 "drive_through" = "С окошком для водителей";
 

@@ -221,6 +221,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D 建築在省電模式下關閉</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">語音指示</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">宣布街道名稱</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">啟用後，將大聲說出要轉入的街道或出口的名稱。</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">語音語言</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -307,7 +311,7 @@
 	<string name="enable_location_services">請啟用定位服務</string>
 	<string name="save">儲存</string>
 	<string name="edit_description_hint">您的描述（文字或 html）</string>
-	<string name="create">建立</string>
+	<string name="create">���立</string>
 	<!-- red color -->
 	<string name="red">紅色</string>
 	<!-- yellow color -->
@@ -492,6 +496,8 @@
 	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 Organic Maps 中編輯的詳細資料。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
 	<string name="editor_operator">營運者</string>
+	<string name="editor_category_unsuitable_title">找不到合適的類別？</string>
+	<string name="editor_category_unsuitable_text">有機地圖僅允許添加簡單的點類別，這意味著沒有城鎮、道路、湖泊、建築物輪廓等。<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>.請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的逐步說明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
 	<string name="downloader_no_downloaded_maps_message">下載地圖來尋找位置和離線瀏覽。</string>
 	<!-- abbreviation for meters -->

@@ -42,7 +42,7 @@
 	<!-- Text in About screen -->
 	<string name="about_headline">Бесплатно для всех, сделано с любовью</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_1">• Без рекламы, без трекинга, без слежки</string>
+	<string name="about_proposition_1">• ��ез рекламы, без трекинга, без слежки</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_2">• Не разряжает батарею, работает в автономном режиме</string>
 	<!-- Text in About screen -->
@@ -236,6 +236,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-здания отключаются в режиме энергосбережения</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосовые инструкции</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Проговаривать названия улиц</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">При включении название улицы или съезда, на который нужно повернуть, будет произноситься вслух.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Язык подсказок</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -368,7 +372,7 @@
 	<string name="dialog_routing_cant_build_route">Не получилось построить маршрут.</string>
 	<string name="dialog_routing_change_start_or_end">Пожалуйста, измените начальную или конечную точку маршрута.</string>
 	<string name="dialog_routing_change_start">Измените начальную точку маршрута</string>
-	<string name="dialog_routing_start_not_determined">Маршрут не построен. Не определена начальная точка маршрута.</string>
+	<string name="dialog_routing_start_not_determined">Маршрут не построен. Не опре��елена начальная точка маршрута.</string>
 	<string name="dialog_routing_select_closer_start">Пожалуйста, выберите начальную точку маршрута ближе к дороге.</string>
 	<string name="dialog_routing_change_end">Измените конечную точку маршрута</string>
 	<string name="dialog_routing_end_not_determined">Маршрут не построен. Не определена конечная точка маршрута.</string>
@@ -507,6 +511,8 @@
 	<string name="editor_detailed_description">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.</string>
 	<string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
 	<string name="editor_operator">Владелец</string>
+	<string name="editor_category_unsuitable_title">Не можешь найти подходящую категорию?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps позволяет добавлять только простые категории точек, то есть никаких городов, дорог, озер, контуров зданий и так далее. Пожалуйста, добавляй такие категории непосредственно на <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Ознакомься с нашим <a href="https://organicmaps.app/faq/editing/advanced-map-editing">руководством</a> для получения подробных пошаговых инструкций.</string>
 	<string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
 	<string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
 	<!-- abbreviation for meters -->
