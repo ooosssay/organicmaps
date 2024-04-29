@@ -121,6 +121,7 @@ public:
   void RemoveBlankAndDuplicationsForDefault();
   /// Calls RemoveBlankNames or RemoveFakeNames depending on mode.
   void RemoveNeedlessNames();
+  void RemoveNameForLanguage(int8_t langCode);
 
   static bool ValidateBuildingLevels(std::string const & buildingLevels);
   static bool ValidateHouseNumber(std::string const & houseNumber);

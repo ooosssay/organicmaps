@@ -368,6 +368,15 @@ void EditableMapObject::RemoveBlankAndDuplicationsForDefault()
   m_name = editedName;
 }
 
+void EditableMapObject::RemoveNameForLanguage(int8_t langCode)
+{
+  std::string_view existingName;
+  if (!m_name.GetString(langCode, existingName))
+    return;
+  m_name.RemoveString(langCode);
+  RemoveBlankAndDuplicationsForDefault();
+}
+
 void EditableMapObject::RemoveNeedlessNames()
 {
   RemoveBlankAndDuplicationsForDefault();
