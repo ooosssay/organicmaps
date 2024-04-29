@@ -391,7 +391,7 @@ private extension CloudStorageManager {
       if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
         return
       }
-      let trashDirectoryUrl = cloudDirectoryUrl.appendingPathComponent(kTrashDirectoryName, isDirectory: true)
+      let trashDirectoryUrl = try fileManager.trashDirectoryUrl(for: cloudDirectoryUrl)
       let fileInTrashDirectoryUrl = trashDirectoryUrl.appendingPathComponent(fileName)
       let trashDirectoryContent = try fileManager.contentsOfDirectory(at: trashDirectoryUrl,
                                                                               includingPropertiesForKeys: [],
@@ -587,8 +587,12 @@ extension FileManager {
     urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(kBookmarksDirectoryName, isDirectory: true)
   }
 
-  func trashDirectoryUrl(for baseDirectoryUrl: URL) -> URL? {
-    baseDirectoryUrl.appendingPathComponent(kTrashDirectoryName)
+  func trashDirectoryUrl(for baseDirectoryUrl: URL) throws -> URL {
+    let trashDirectory = baseDirectoryUrl.appendingPathComponent(kTrashDirectoryName, isDirectory: true)
+    if !fileExists(atPath: trashDirectory.path) {
+      try createDirectory(at: trashDirectory, withIntermediateDirectories: true)
+    }
+    return trashDirectory
   }
 }
 

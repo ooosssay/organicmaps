@@ -91,6 +91,13 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
         return
       }
       let documentsContainerUrl = containerUrl.appendingPathComponent(kDocumentsDirectoryName)
+      if !self.fileManager.fileExists(atPath: documentsContainerUrl.path) {
+        do {
+          try self.fileManager.createDirectory(at: documentsContainerUrl, withIntermediateDirectories: true)
+        } catch {
+          completion?(.failure(.containerNotFound))
+        }
+      }
       self.ubiquitousDocumentsDirectory = documentsContainerUrl
       completion?(.success(documentsContainerUrl))
     }
@@ -165,7 +172,7 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
     }
     // On iOS we can get the list of deleted items from the .Trash directory but only when iCloud is enabled.
     guard let ubiquitousDocumentsDirectory,
-          let trashDirectoryUrl = fileManager.trashDirectoryUrl(for: ubiquitousDocumentsDirectory),
+          let trashDirectoryUrl = try? fileManager.trashDirectoryUrl(for: ubiquitousDocumentsDirectory),
           let removedItems = try? fileManager.contentsOfDirectory(at: trashDirectoryUrl,
                                                                   includingPropertiesForKeys: [.isDirectoryKey],
                                                                   options: [.skipsPackageDescendants, .skipsSubdirectoryDescendants]) else {
