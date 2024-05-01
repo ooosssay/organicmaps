@@ -99,29 +99,30 @@ private extension CloudStorageManager {
   // MARK: - Synchronization Lifecycle
   func startSynchronization() {
     LOG(.debug, "Start synchronization...")
-    guard settings.iCLoudSynchronizationEnabled() else { return }
-    guard !cloudDirectoryMonitor.isStarted else {
+    switch cloudDirectoryMonitor.state {
+    case .started:
       LOG(.debug, "Synchronization is already started")
-      if cloudDirectoryMonitor.isPaused {
-        LOG(.debug, "Resume synchronization")
-        resumeSynchronization()
-      }
       return
-    }
-    cloudDirectoryMonitor.start { [weak self] result in
-      guard let self else { return }
-      switch result {
-      case .failure(let error):
-        self.processError(error)
-      case .success:
-        self.localDirectoryMonitor.start { result in
-          switch result {
-          case .failure(let error):
-            self.processError(error)
-          case .success:
-            LOG(.debug, "Synchronization is started successfully")
-            self.addToBookmarksManagerObserverList()
-            break
+    case .paused:
+      resumeSynchronization()
+    case .stopped:
+      cloudDirectoryMonitor.start { [weak self] result in
+        guard let self else { return }
+        switch result {
+        case .failure(let error):
+          self.stopSynchronization()
+          self.processError(error)
+        case .success:
+          self.localDirectoryMonitor.start { result in
+            switch result {
+            case .failure(let error):
+              self.stopSynchronization()
+              self.processError(error)
+            case .success:
+              LOG(.debug, "Synchronization is started successfully")
+              self.addToBookmarksManagerObserverList()
+              break
+            }
           }
         }
       }
@@ -166,10 +167,12 @@ private extension CloudStorageManager {
 
   @objc func appWillEnterForeground() {
     cancelBackgroundExecutionIfNeeded()
+    guard settings.iCLoudSynchronizationEnabled() else { return }
     startSynchronization()
   }
 
   @objc func appDidEnterBackground() {
+    guard settings.iCLoudSynchronizationEnabled() else { return }
     extendBackgroundExecutionIfNeeded { [weak self] in
       guard let self else { return }
       self.pauseSynchronization()
@@ -232,7 +235,6 @@ extension CloudStorageManager: CloudDirectoryMonitorDelegate {
 private extension CloudStorageManager {
   // MARK: - Handle Events
   func processEvents(_ events: [OutgoingEvent]) {
-    LOG(.debug, "Processing events...")
     guard !events.isEmpty else {
       synchronizationError = nil
       return
@@ -240,6 +242,7 @@ private extension CloudStorageManager {
 
     synchronizationIsInProcess = true
 
+    LOG(.debug, "Processing events...")
     events.forEach { [weak self] event in
       guard let self else { return }
       self.backgroundQueue.async {

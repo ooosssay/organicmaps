@@ -25,8 +25,7 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
 
   func testInitialization() {
     XCTAssertEqual(directoryMonitor.directory, tempDirectory, "Monitor initialized with incorrect directory.")
-    XCTAssertFalse(directoryMonitor.isStarted, "Monitor should not be started initially.")
-    XCTAssertTrue(directoryMonitor.isPaused, "Monitor should be paused initially.")
+    XCTAssertTrue(directoryMonitor.state == .stopped, "Monitor should be stopped initially.")
   }
 
   func testStartMonitoring() {
@@ -34,8 +33,7 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     directoryMonitor.start { result in
       switch result {
       case .success:
-        XCTAssertTrue(self.directoryMonitor.isStarted, "Monitor should be started.")
-        XCTAssertFalse(self.directoryMonitor.isPaused, "Monitor should not be paused after starting.")
+        XCTAssertTrue(self.directoryMonitor.state == .started, "Monitor should be started.")
       case .failure(let error):
         XCTFail("Monitoring failed to start with error: \(error)")
       }
@@ -47,16 +45,16 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
   func testStopMonitoring() {
     directoryMonitor.start()
     directoryMonitor.stop()
-    XCTAssertFalse(directoryMonitor.isStarted, "Monitor should be stopped.")
+    XCTAssertTrue(directoryMonitor.state == .stopped, "Monitor should be stopped.")
   }
 
   func testPauseAndResumeMonitoring() {
     directoryMonitor.start()
     directoryMonitor.pause()
-    XCTAssertTrue(directoryMonitor.isPaused, "Monitor should be paused.")
+    XCTAssertTrue(directoryMonitor.state == .paused, "Monitor should be paused.")
 
     directoryMonitor.resume()
-    XCTAssertFalse(directoryMonitor.isPaused, "Monitor should be resumed.")
+    XCTAssertTrue(directoryMonitor.state == .started, "Monitor should be started.")
   }
 
   func testDelegateDidFinishGathering() {
@@ -84,7 +82,7 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
 
     directoryMonitor.start { result in
       if case .success = result {
-        XCTAssertTrue(self.directoryMonitor.isStarted, "Monitor should be started.")
+        XCTAssertTrue(self.directoryMonitor.state == .started, "Monitor should be started.")
       }
       startExpectation.fulfill()
     }

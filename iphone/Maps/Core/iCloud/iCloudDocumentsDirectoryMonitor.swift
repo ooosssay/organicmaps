@@ -1,7 +1,7 @@
 protocol CloudDirectoryMonitor: DirectoryMonitor {
   var fileManager: FileManager { get }
   var delegate: CloudDirectoryMonitorDelegate? { get set }
-  
+
   func fetchUbiquityDirectoryUrl(completion: ((Result<URL, SynchronizationError>) -> Void)?)
   func isCloudAvailable() -> Bool
 }
@@ -32,8 +32,7 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
   private(set) var ubiquitousDocumentsDirectory: URL?
 
   // MARK: - Public properties
-  var isStarted: Bool { return metadataQuery?.isStarted ?? false }
-  private(set) var isPaused: Bool = true
+  private(set) var state: DirectoryMonitorState = .stopped
   weak var delegate: CloudDirectoryMonitorDelegate?
 
   init(fileManager: FileManager = .default, cloudContainerIdentifier: String = iCloudDocumentsDirectoryMonitor.sharedContainerIdentifier, fileType: FileType) {
@@ -59,24 +58,33 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
       case .failure(let error):
         completion?(.failure(error))
       case .success:
+        LOG(.debug, "iCloudMonitor: Start")
         self.startQuery()
+        self.state = .started
         completion?(.success)
       }
     }
   }
 
   func stop() {
+    guard state != .stopped else { return }
+    LOG(.debug, "iCloudMonitor: Stop")
     stopQuery()
+    state = .stopped
   }
 
   func resume() {
+    guard state != .started else { return }
+    LOG(.debug, "iCloudMonitor: Resume")
     metadataQuery?.enableUpdates()
-    isPaused = false
+    state = .started
   }
 
   func pause() {
+    guard state != .paused else { return }
+    LOG(.debug, "iCloudMonitor: Pause")
     metadataQuery?.disableUpdates()
-    isPaused = true
+    state = .paused
   }
 
   func fetchUbiquityDirectoryUrl(completion: ((Result<URL, SynchronizationError>) -> Void)? = nil) {
@@ -86,30 +94,30 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
     }
     DispatchQueue.global().async {
       guard let containerUrl = self.fileManager.url(forUbiquityContainerIdentifier: self.containerIdentifier) else {
-        LOG(.debug, "Failed to retrieve container's URL for:\(self.containerIdentifier)")
+        LOG(.debug, "iCloudMonitor: Failed to retrieve container's URL for:\(self.containerIdentifier)")
         completion?(.failure(.containerNotFound))
         return
       }
       let documentsContainerUrl = containerUrl.appendingPathComponent(kDocumentsDirectoryName)
       if !self.fileManager.fileExists(atPath: documentsContainerUrl.path) {
-        LOG(.debug, "Creating directory at path: \(documentsContainerUrl.path)")
+        LOG(.debug, "iCloudMonitor: Creating directory at path: \(documentsContainerUrl.path)")
         do {
           try self.fileManager.createDirectory(at: documentsContainerUrl, withIntermediateDirectories: true)
         } catch {
           completion?(.failure(.containerNotFound))
         }
       }
-      LOG(.debug, "Ubiquity directory URL: \(documentsContainerUrl)")
+      LOG(.debug, "iCloudMonitor: Ubiquity directory URL: \(documentsContainerUrl)")
       self.ubiquitousDocumentsDirectory = documentsContainerUrl
       completion?(.success(documentsContainerUrl))
     }
   }
-  
+
   func isCloudAvailable() -> Bool {
     let cloudToken = fileManager.ubiquityIdentityToken
     guard let cloudToken else {
       UserDefaults.standard.removeObject(forKey: kUDCloudIdentityKey)
-      LOG(.debug, "Cloud is not available. Cloud token is nil.")
+      LOG(.debug, "iCloudMonitor: Cloud is not available. Cloud token is nil.")
       return false
     }
     do {
@@ -118,7 +126,7 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
       return true
     } catch {
       UserDefaults.standard.removeObject(forKey: kUDCloudIdentityKey)
-      LOG(.debug, "Failed to archive cloud token: \(error)")
+      LOG(.debug, "iCloudMonitor: Failed to archive cloud token: \(error)")
       return false
     }
   }
@@ -203,7 +211,7 @@ private extension iCloudDocumentsDirectoryMonitor {
 
   // TODO: - Actually this notification was never called. If user disable the iCloud for the current app during the active state the app will be relaunched. Needs to investigate additional cases when this notification can be sent.
   @objc func cloudAvailabilityChanged(_ notification: Notification) {
-    LOG(.debug, "Cloud availability changed to : \(isCloudAvailable())")
+    LOG(.debug, "iCloudMonitor: Cloud availability changed to : \(isCloudAvailable())")
     isCloudAvailable() ? startQuery() : stopQuery()
   }
 
@@ -216,42 +224,40 @@ private extension iCloudDocumentsDirectoryMonitor {
   func startQuery() {
     metadataQuery = Self.buildMetadataQuery(for: fileType)
     guard let metadataQuery, !metadataQuery.isStarted else { return }
-    LOG(.debug, "Start metadata query")
+    LOG(.debug, "iCloudMonitor: Start metadata query")
     metadataQuery.start()
-    isPaused = false
   }
 
   func stopQuery() {
-    LOG(.debug, "Stop metadata query")
+    LOG(.debug, "iCloudMonitor: Stop metadata query")
     metadataQuery?.stop()
     metadataQuery = nil
-    isPaused = true
   }
 
   @objc func queryDidFinishGathering(_ notification: Notification) {
     guard isCloudAvailable() else { return }
-    pause()
-    LOG(.debug, "Query did finish gathering")
+    metadataQuery?.disableUpdates()
+    LOG(.debug, "iCloudMonitor: Query did finish gathering")
     let contents = Self.getContentsFromNotification(notification, metadataQueryErrorHandler)
     let trashedContents = Self.getTrashedContentsFromTrashDirectory(fileManager: fileManager,
                                                                    ubiquitousDocumentsDirectory: ubiquitousDocumentsDirectory,
                                                                    onError: metadataQueryErrorHandler)
-    LOG(.debug, "Cloud contents count: \(contents.count)")
-    LOG(.debug, "Trashed contents count: \(trashedContents.count)")
+    LOG(.debug, "iCloudMonitor: Cloud contents count: \(contents.count)")
+    LOG(.debug, "iCloudMonitor: Trashed contents count: \(trashedContents.count)")
     delegate?.didFinishGathering(contents: contents + trashedContents)
-    resume()
+    metadataQuery?.enableUpdates()
   }
 
   @objc func queryDidUpdate(_ notification: Notification) {
     guard isCloudAvailable() else { return }
-    pause()
-    LOG(.debug, "Query did update")
+    metadataQuery?.disableUpdates()
+    LOG(.debug, "iCloudMonitor: Query did update")
     let contents = Self.getContentsFromNotification(notification, metadataQueryErrorHandler)
     let trashedContents = Self.getTrashContentsFromNotification(notification, metadataQueryErrorHandler)
-    LOG(.debug, "Cloud contents count: \(contents.count)")
-    LOG(.debug, "Trashed contents count: \(trashedContents.count)")
+    LOG(.debug, "iCloudMonitor: Cloud contents count: \(contents.count)")
+    LOG(.debug, "iCloudMonitor: Trashed contents count: \(trashedContents.count)")
     delegate?.didUpdate(contents: contents + trashedContents)
-    resume()
+    metadataQuery?.enableUpdates()
   }
 
   private var metadataQueryErrorHandler: (Error) -> Void {

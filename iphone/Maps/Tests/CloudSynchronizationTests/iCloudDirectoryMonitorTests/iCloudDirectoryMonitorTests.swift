@@ -47,8 +47,7 @@ class iCloudDirectoryMonitorTests: XCTestCase {
       }
     }
     waitForExpectations(timeout: 5)
-    XCTAssertTrue(cloudMonitor.isStarted, "Monitor should be started when the cloud is available.")
-    XCTAssertFalse(cloudMonitor.isPaused, "Monitor should not be paused after starting.")
+    XCTAssertTrue(cloudMonitor.state == .started, "Monitor should be started when the cloud is available.")
   }
 
 
@@ -62,24 +61,22 @@ class iCloudDirectoryMonitorTests: XCTestCase {
       }
     }
     waitForExpectations(timeout: 5)
-    XCTAssertFalse(cloudMonitor.isStarted, "Monitor should not start when the cloud is not available.")
+    XCTAssertTrue(cloudMonitor.state == .stopped, "Monitor should not start when the cloud is not available.")
   }
 
   func testStopAfterStart() {
     testStartWhenCloudAvailable()
     cloudMonitor.stop()
-    XCTAssertFalse(cloudMonitor.isStarted, "Monitor should not be started after stopping.")
-    XCTAssertTrue(cloudMonitor.isPaused, "Monitor should be paused after stopping.")
+    XCTAssertTrue(cloudMonitor.state == .stopped, "Monitor should not be started after stopping.")
   }
 
   func testPauseAndResume() {
     testStartWhenCloudAvailable()
     cloudMonitor.pause()
-    XCTAssertTrue(cloudMonitor.isPaused, "Monitor should be paused.")
+    XCTAssertTrue(cloudMonitor.state == .paused, "Monitor should be paused.")
 
     cloudMonitor.resume()
-    XCTAssertFalse(cloudMonitor.isPaused, "Monitor should not be paused after resuming.")
-    XCTAssertTrue(cloudMonitor.isStarted, "Monitor should still be started after resuming.")
+    XCTAssertTrue(cloudMonitor.state == .started, "Monitor should not be paused after resuming.")
   }
 
   func testFetchUbiquityDirectoryUrl() {
